@@ -1,3 +1,4 @@
+import 'isomorphic-fetch'
 import { Issuer, Client, TokenSet } from 'openid-client'
 import { AuthenticationProvider } from '@microsoft/microsoft-graph-client'
 
