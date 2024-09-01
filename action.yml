@@ -1,25 +1,59 @@
 name: 'Deploy Azure AD B2C TrustFramework KeySet secret'
 description: 'A GitHub Action for deploying TrustFramework KeySet secrets using the Microsoft Graph'
-author: 'Adam Stoffel'
+author: 'Fares Manadi'
 branding:
   icon: 'lock'
   color: 'blue'
 inputs:
-  value:
-    description: 'The TrustFramework KeySet secret value'
-    required: true
   name:
     description: 'The TrustFramework KeySet container name'
     required: true
-  tenant:
+  options:
+    description: 'The TrustFramework KeySet container options'
+    required: true
+    type: choice
+    options:
+      - Generate
+      - Manual
+      - Upload
+  key_use:
+    description: 'The TrustFramework KeySet container usage: "Signature" or "Encryption"'
+    required: true
+    type: choice
+    options:
+      - Signature
+      - Encryption
+  activation_date:
+    description: 'The TrustFramework KeySet secret value'
+    required: false
+  expiration_date:
+    description: 'The TrustFramework KeySet secret value'
+    required: false
+  key_type:
+    description: 'The TrustFramework KeySet container type'
+    required: false
+    type: choice
+    options:
+      - Secret
+      - RSA
+  secret:
+    description: 'The TrustFramework KeySet secret value'
+    required: false
+  file_path:
+    description: 'The TrustFramework KeySet secret value'
+    required: false
+  password:
+    description: 'The TrustFramework KeySet secret value'
+    required: false
+  tenant_id:
     description: 'The full Azure AD B2C tenant name (e.g.: mytenant.onmicrosoft.com) or GUID'
     required: true
-  clientId:
+  client_id:
     description: 'The Client ID for a service principal which will be used to authenticate to the Microsoft Graph'
     required: true
-  clientSecret:
+  client_secret:
     description: 'The Client Secret for a service principal which will be used to authenticate to the Microsoft Graph'
     required: true
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: 'node20'
+  main: 'lib/main/index.js'
