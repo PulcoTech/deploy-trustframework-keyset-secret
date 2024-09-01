@@ -41269,6 +41269,8 @@ async function run() {
         body['exp'] = 99;
         // Then upload the secret
         await client.api(graph_path).post(body);
+        // Set outputs for other workflow steps to use
+        core.setOutput('time', new Date().toTimeString());
         core.info('Secret created successfully using Microsoft Graph');
     }
     catch (error) {
