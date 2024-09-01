@@ -68,10 +68,12 @@
   "dependencies": {
     "@actions/core": "^1.10.1",
     "@microsoft/microsoft-graph-client": "^3.0.7",
+    "isomorphic-fetch": "^3.0.0",
     "openid-client": "^5.6.5"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
+    "@microsoft/microsoft-graph-types-beta": "^0.42.0-preview",
     "@types/jest": "^29.5.12",
     "@types/node": "^22.5.0",
     "@typescript-eslint/eslint-plugin": "^7.17.0",

@@ -66,6 +66,11 @@ inputs:
       authenticate to the Microsoft Graph'
     required: true
 
+# Define your outputs here.
+outputs:
+  time:
+    description: 'Your output description here'
+
 runs:
   using: node20
   main: dist/index.js
