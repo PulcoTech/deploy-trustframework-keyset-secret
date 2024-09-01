@@ -50,7 +50,8 @@ export async function run(): Promise<void> {
     body['exp'] = 99
     // Then upload the secret
     await client.api(graph_path).post(body)
-
+    // Set outputs for other workflow steps to use
+    core.setOutput('time', new Date().toTimeString())
     core.info('Secret created successfully using Microsoft Graph')
   } catch (error) {
     // Fail the workflow run if an error occurs

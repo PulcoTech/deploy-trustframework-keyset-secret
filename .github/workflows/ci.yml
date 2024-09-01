@@ -57,7 +57,13 @@ jobs:
         id: test-action
         uses: ./
         with:
-          milliseconds: 2000
+          name: testkeySet
+          options: generate
+          key_use: signature
+          key_type: RSA
+          client_id: ${{ secrets.AZURE_B2C_CLIENT_ID }}
+          tenant_id: ${{ secrets.AZURE_B2C_TENANT_ID }}
+          client_secret: ${{ secrets.AZURE_B2C_CLIENT_SECRET }}
 
       - name: Print Output
         id: output
