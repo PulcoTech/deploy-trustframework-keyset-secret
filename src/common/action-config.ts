@@ -29,7 +29,7 @@ export class ActionConfig {
     this.name = `B2C_1A_${core.getInput('name')}`
     this.options = core.getInput('options') as KeyOptionsType
     this.keyUse = core.getInput('key_use', {
-      required: this.options === 'generate' || this.options == 'manual'
+      required: this.options === 'generate' || this.options === 'manual'
     }) as KeyUseType
     this.activationDate = new Date(
       core.getInput('activation_date', { required: false })
@@ -41,7 +41,7 @@ export class ActionConfig {
       required: this.options === 'generate'
     }) as KeyType
     this.secret = core.getInput('secret', {
-      required: this.options == 'manual'
+      required: this.options === 'manual'
     })
     this.filePath = core.getInput('file_path', {
       required: this.options === 'upload'
@@ -57,7 +57,7 @@ export class ActionConfig {
     this.mask(this.clientSecret)
   }
 
-  validate() {
+  validate(): void {
     if (
       this.options === 'generate' &&
       (isNullOrEmpty(this.keyType) || isNullOrEmpty(this.keyUse))
@@ -90,7 +90,7 @@ export class ActionConfig {
     }
   }
 
-  mask(parameterValue: string) {
+  mask(parameterValue: string): void {
     if (parameterValue) {
       core.setSecret(parameterValue)
     }
