@@ -33,7 +33,7 @@ export async function run(): Promise<void> {
 
     const body: { [key: string]: unknown } = {}
     if (actionConfig.options === 'generate') {
-      graph_path = `trustFramework/keySets/${actionConfig.name}/generateSecret`
+      graph_path = `trustFramework/keySets/${actionConfig.name}/generateKey`
       body['use'] = ActionConfig.keyUseName.get(actionConfig.keyUse)
       body['kty'] = actionConfig.keyType
     } else if (actionConfig.options === 'manual') {

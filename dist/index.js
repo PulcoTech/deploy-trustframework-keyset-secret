@@ -45234,7 +45234,7 @@ async function run() {
         }
         const body = {};
         if (actionConfig.options === 'generate') {
-            graph_path = `trustFramework/keySets/${actionConfig.name}/generateSecret`;
+            graph_path = `trustFramework/keySets/${actionConfig.name}/generateKey`;
             body['use'] = action_config_1.ActionConfig.keyUseName.get(actionConfig.keyUse);
             body['kty'] = actionConfig.keyType;
         }
