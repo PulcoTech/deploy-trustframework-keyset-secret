@@ -55,6 +55,7 @@ export class ActionConfig {
 
     this.mask(this.clientId)
     this.mask(this.clientSecret)
+    this.mask(this.secret)
   }
 
   validate(): void {
