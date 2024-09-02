@@ -27,9 +27,11 @@ export async function run(): Promise<void> {
       await client.api(graph_path).create({
         id: actionConfig.name
       })
-    } catch {}
+    } catch (error) {
+      core.info('Empty catch')
+    }
 
-    let body: { [key: string]: any } = {}
+    const body: { [key: string]: unknown } = {}
     if (actionConfig.options === 'generate') {
       graph_path = `trustFramework/keySets/${actionConfig.name}/generateSecret`
       body['use'] = ActionConfig.keyUseName.get(actionConfig.keyUse)
@@ -40,8 +42,8 @@ export async function run(): Promise<void> {
       body['k'] = actionConfig.secret
     } else {
       graph_path = `trustFramework/keySets/${actionConfig.name}/uploadPkcs12`
-      let buffer = Buffer.from(fs.readFileSync(actionConfig.filePath))
-      let fileBase64 = buffer.toString('base64')
+      const buffer = Buffer.from(fs.readFileSync(actionConfig.filePath))
+      const fileBase64 = buffer.toString('base64')
       body['key'] = fileBase64
       body['password'] = actionConfig.password
       core.info('Uploading certificate using Microsoft Graph')

@@ -1,5 +1,6 @@
 import 'isomorphic-fetch'
 import { Issuer, Client, TokenSet } from 'openid-client'
+// eslint-disable-next-line import/named
 import { AuthenticationProvider } from '@microsoft/microsoft-graph-client'
 
 export class ClientCredentialsAuthProvider implements AuthenticationProvider {
@@ -14,10 +15,11 @@ export class ClientCredentialsAuthProvider implements AuthenticationProvider {
     private clientSecret: string,
     private scopes = [ClientCredentialsAuthProvider.defaultScope]
   ) {
+    // eslint-disable-next-line github/no-then
     this.authClient = Issuer.discover(
       `https://login.microsoftonline.com/${tenant}/v2.0/.well-known/openid-configuration`
     ).then(issuer => {
-      let client = new issuer.Client({
+      const client = new issuer.Client({
         client_id: clientId,
         client_secret: clientSecret
       })
@@ -25,7 +27,7 @@ export class ClientCredentialsAuthProvider implements AuthenticationProvider {
     })
   }
 
-  public async getAccessToken(): Promise<string> {
+  async getAccessToken(): Promise<string> {
     if (!this.cachedToken || this.cachedToken.expired()) {
       await this.acquireNewToken()
     }
@@ -37,7 +39,7 @@ export class ClientCredentialsAuthProvider implements AuthenticationProvider {
     return this.cachedToken.access_token
   }
 
-  private async acquireNewToken() {
+  private async acquireNewToken(): Promise<void> {
     this.cachedToken = await (
       await this.authClient
     ).grant({

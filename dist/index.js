@@ -45014,8 +45014,9 @@ class ClientCredentialsAuthProvider {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.scopes = scopes;
+        // eslint-disable-next-line github/no-then
         this.authClient = openid_client_1.Issuer.discover(`https://login.microsoftonline.com/${tenant}/v2.0/.well-known/openid-configuration`).then(issuer => {
-            let client = new issuer.Client({
+            const client = new issuer.Client({
                 client_id: clientId,
                 client_secret: clientSecret
             });
@@ -45098,7 +45099,7 @@ class ActionConfig {
         this.name = `B2C_1A_${core.getInput('name')}`;
         this.options = core.getInput('options');
         this.keyUse = core.getInput('key_use', {
-            required: this.options === 'generate' || this.options == 'manual'
+            required: this.options === 'generate' || this.options === 'manual'
         });
         this.activationDate = new Date(core.getInput('activation_date', { required: false }));
         this.expirationDate = new Date(core.getInput('expiration_date', { required: false }));
@@ -45106,7 +45107,7 @@ class ActionConfig {
             required: this.options === 'generate'
         });
         this.secret = core.getInput('secret', {
-            required: this.options == 'manual'
+            required: this.options === 'manual'
         });
         this.filePath = core.getInput('file_path', {
             required: this.options === 'upload'
@@ -45227,8 +45228,10 @@ async function run() {
                 id: actionConfig.name
             });
         }
-        catch { }
-        let body = {};
+        catch (error) {
+            core.info('Empty catch');
+        }
+        const body = {};
         if (actionConfig.options === 'generate') {
             graph_path = `trustFramework/keySets/${actionConfig.name}/generateSecret`;
             body['use'] = action_config_1.ActionConfig.keyUseName.get(actionConfig.keyUse);
@@ -45241,8 +45244,8 @@ async function run() {
         }
         else {
             graph_path = `trustFramework/keySets/${actionConfig.name}/uploadPkcs12`;
-            let buffer = Buffer.from(fs_1.default.readFileSync(actionConfig.filePath));
-            let fileBase64 = buffer.toString('base64');
+            const buffer = Buffer.from(fs_1.default.readFileSync(actionConfig.filePath));
+            const fileBase64 = buffer.toString('base64');
             body['key'] = fileBase64;
             body['password'] = actionConfig.password;
             core.info('Uploading certificate using Microsoft Graph');

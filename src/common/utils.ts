@@ -4,7 +4,7 @@ export type KeyOptionsType = 'generate' | 'manual' | 'upload'
 export type KeyUseType = 'signature' | 'encryption'
 export type KeyType = 'OCT' | 'RSA'
 
-export function isNullOrEmpty(input: any): boolean {
+export function isNullOrEmpty(input: string): boolean {
   return input == null || input === ''
 }
 
