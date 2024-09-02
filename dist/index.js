@@ -45014,7 +45014,7 @@ class ClientCredentialsAuthProvider {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.scopes = scopes;
-        // eslint-disable-next-line github/no-then
+        /* eslint-disable github/no-then */
         this.authClient = openid_client_1.Issuer.discover(`https://login.microsoftonline.com/${tenant}/v2.0/.well-known/openid-configuration`).then(issuer => {
             const client = new issuer.Client({
                 client_id: clientId,
@@ -45022,6 +45022,7 @@ class ClientCredentialsAuthProvider {
             });
             return client;
         });
+        /* eslint-enable github/no-then */
     }
     async getAccessToken() {
         if (!this.cachedToken || this.cachedToken.expired()) {
