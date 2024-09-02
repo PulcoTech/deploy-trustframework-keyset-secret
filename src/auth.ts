@@ -15,7 +15,7 @@ export class ClientCredentialsAuthProvider implements AuthenticationProvider {
     private clientSecret: string,
     private scopes = [ClientCredentialsAuthProvider.defaultScope]
   ) {
-    // eslint-disable-next-line github/no-then
+    /* eslint-disable github/no-then */
     this.authClient = Issuer.discover(
       `https://login.microsoftonline.com/${tenant}/v2.0/.well-known/openid-configuration`
     ).then(issuer => {
@@ -25,6 +25,7 @@ export class ClientCredentialsAuthProvider implements AuthenticationProvider {
       })
       return client
     })
+    /* eslint-enable github/no-then */
   }
 
   async getAccessToken(): Promise<string> {

@@ -33,7 +33,7 @@ export async function run(): Promise<void> {
 
     const body: { [key: string]: unknown } = {}
     if (actionConfig.options === 'generate') {
-      graph_path = `trustFramework/keySets/${actionConfig.name}/generateSecret`
+      graph_path = `trustFramework/keySets/${actionConfig.name}/generateKey`
       body['use'] = ActionConfig.keyUseName.get(actionConfig.keyUse)
       body['kty'] = actionConfig.keyType
     } else if (actionConfig.options === 'manual') {
@@ -48,8 +48,8 @@ export async function run(): Promise<void> {
       body['password'] = actionConfig.password
       core.info('Uploading certificate using Microsoft Graph')
     }
-    body['nbf'] = 99
-    body['exp'] = 99
+    body['nbf'] = Math.floor(Date.now() / 1000) + 3 * 60 * 60
+    body['exp'] = Math.floor(Date.now() / 1000) + 365 * 24 * 60 * 60
     // Then upload the secret
     await client.api(graph_path).post(body)
     // Set outputs for other workflow steps to use

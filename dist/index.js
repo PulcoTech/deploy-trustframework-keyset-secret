@@ -45014,7 +45014,7 @@ class ClientCredentialsAuthProvider {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.scopes = scopes;
-        // eslint-disable-next-line github/no-then
+        /* eslint-disable github/no-then */
         this.authClient = openid_client_1.Issuer.discover(`https://login.microsoftonline.com/${tenant}/v2.0/.well-known/openid-configuration`).then(issuer => {
             const client = new issuer.Client({
                 client_id: clientId,
@@ -45022,6 +45022,7 @@ class ClientCredentialsAuthProvider {
             });
             return client;
         });
+        /* eslint-enable github/no-then */
     }
     async getAccessToken() {
         if (!this.cachedToken || this.cachedToken.expired()) {
@@ -45233,7 +45234,7 @@ async function run() {
         }
         const body = {};
         if (actionConfig.options === 'generate') {
-            graph_path = `trustFramework/keySets/${actionConfig.name}/generateSecret`;
+            graph_path = `trustFramework/keySets/${actionConfig.name}/generateKey`;
             body['use'] = action_config_1.ActionConfig.keyUseName.get(actionConfig.keyUse);
             body['kty'] = actionConfig.keyType;
         }
@@ -45250,8 +45251,8 @@ async function run() {
             body['password'] = actionConfig.password;
             core.info('Uploading certificate using Microsoft Graph');
         }
-        body['nbf'] = 99;
-        body['exp'] = 99;
+        body['nbf'] = Math.floor(Date.now() / 1000) + 3 * 60 * 60;
+        body['exp'] = Math.floor(Date.now() / 1000) + 365 * 24 * 60 * 60;
         // Then upload the secret
         await client.api(graph_path).post(body);
         // Set outputs for other workflow steps to use

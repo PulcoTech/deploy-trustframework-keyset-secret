@@ -36,6 +36,10 @@ jobs:
         id: install
         run: npm ci
 
+      - name: Make release script executable
+        run: |
+          chmod +x script/release
+
       - name: Lint Codebase
         id: super-linter
         uses: super-linter/super-linter/slim@v7
