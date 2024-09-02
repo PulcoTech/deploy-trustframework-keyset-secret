@@ -45251,7 +45251,7 @@ async function run() {
             body['password'] = actionConfig.password;
             core.info('Uploading certificate using Microsoft Graph');
         }
-        body['nbf'] = Math.floor(Date.now() / 1000);
+        body['nbf'] = Math.floor(Date.now() / 1000) + 3 * 60 * 60;
         body['exp'] = Math.floor(Date.now() / 1000) + 365 * 24 * 60 * 60;
         // Then upload the secret
         await client.api(graph_path).post(body);
