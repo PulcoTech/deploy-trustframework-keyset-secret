@@ -45121,6 +45121,7 @@ class ActionConfig {
         this.clientSecret = core.getInput('client_secret');
         this.mask(this.clientId);
         this.mask(this.clientSecret);
+        this.mask(this.secret);
     }
     validate() {
         if (this.options === 'generate' &&
@@ -45230,7 +45231,8 @@ async function run() {
             });
         }
         catch (error) {
-            core.info('Empty catch');
+            if (error instanceof Error)
+                core.debug(error.message);
         }
         const body = {};
         if (actionConfig.options === 'generate') {

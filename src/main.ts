@@ -28,7 +28,7 @@ export async function run(): Promise<void> {
         id: actionConfig.name
       })
     } catch (error) {
-      core.info('Empty catch')
+      if (error instanceof Error) core.debug(error.message)
     }
 
     const body: { [key: string]: unknown } = {}
