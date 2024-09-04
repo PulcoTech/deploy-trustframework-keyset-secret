@@ -16,9 +16,9 @@ inputs:
     description: 'The TrustFramework KeySet container options'
     type: choice
     options:
-      - Generate
-      - Manual
-      - Upload
+      - generate
+      - manual
+      - upload
   policy_keys:
     description: 'The TrustFramework KeySet secret value'
   key_use:
@@ -26,8 +26,8 @@ inputs:
       'The TrustFramework KeySet container usage: "Signature" or "Encryption"'
     type: choice
     options:
-      - Signature
-      - Encryption
+      - signature
+      - encryption
   activation_date:
     description: 'The TrustFramework KeySet secret value'
   expiration_date:
@@ -36,7 +36,7 @@ inputs:
     description: 'The TrustFramework KeySet container type'
     type: choice
     options:
-      - Secret
+      - OCT
       - RSA
   secret:
     description: 'The TrustFramework KeySet secret value'
