@@ -44,7 +44,9 @@ export class Settings {
       isNullOrEmpty(this.policyKeysJson) &&
       (isNullOrEmpty(this.name) || isNullOrEmpty(this.options))
     ) {
-      throw new Error(`Missing required inputs`)
+      throw new Error(
+        `Missing required inputs name=${this.name} options=${this.options} policy_keys=${this.policyKeysJson}`
+      )
     }
     this.keyUse = parseEnum(
       KeyUse,

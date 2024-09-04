@@ -59553,7 +59553,7 @@ class Settings {
         this.policyKeysJson = core.getInput('policy_keys');
         if ((0, utils_1.isNullOrEmpty)(this.policyKeysJson) &&
             ((0, utils_1.isNullOrEmpty)(this.name) || (0, utils_1.isNullOrEmpty)(this.options))) {
-            throw new Error(`Missing required inputs`);
+            throw new Error(`Missing required inputs name=${this.name} options=${this.options} policy_keys=${this.policyKeysJson}`);
         }
         this.keyUse = (0, utils_1.parseEnum)(types_1.KeyUse, (0, utils_1.capitalize)(core.getInput('key_use', {
             required: (0, utils_1.isNullOrEmpty)(this.policyKeysJson) &&
