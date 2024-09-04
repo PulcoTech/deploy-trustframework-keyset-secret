@@ -59549,28 +59549,30 @@ class Settings {
     clientSecret;
     constructor() {
         this.name = `${types_1.KEY_NAME_PREFIX}${core.getInput('name')}`;
-        this.options = (0, utils_1.parseEnum)(types_1.KeyOptions, core.getInput('options'));
+        this.options = (0, utils_1.parseEnum)(types_1.KeyOptions, (0, utils_1.capitalize)(core.getInput('options')));
         this.policyKeysJson = core.getInput('policy_keys');
         if ((0, utils_1.isNullOrEmpty)(this.policyKeysJson) &&
             ((0, utils_1.isNullOrEmpty)(this.name) || (0, utils_1.isNullOrEmpty)(this.options))) {
             throw new Error(`Missing required inputs`);
         }
-        this.keyUse = (0, utils_1.parseEnum)(types_1.KeyUse, core.getInput('key_use', {
+        this.keyUse = (0, utils_1.parseEnum)(types_1.KeyUse, (0, utils_1.capitalize)(core.getInput('key_use', {
             required: (0, utils_1.isNullOrEmpty)(this.policyKeysJson) &&
                 (this.options === 'generate' || this.options === 'manual')
-        }));
-        this.keyType = (0, utils_1.parseEnum)(types_1.KeyType, core.getInput('key_type', {
+        })));
+        this.keyType = (0, utils_1.parseEnum)(types_1.KeyType, (0, utils_1.capitalize)(core.getInput('key_type', {
             required: (0, utils_1.isNullOrEmpty)(this.policyKeysJson) && this.options === 'generate'
-        }));
+        })));
         this.secret = core.getInput('secret', {
             required: (0, utils_1.isNullOrEmpty)(this.policyKeysJson) && this.options === 'manual'
         });
         this.filePath = core.getInput('file_path', {
             required: (0, utils_1.isNullOrEmpty)(this.policyKeysJson) && this.options === 'upload'
         });
-        this.certificateKind = (0, utils_1.parseEnum)(types_1.CertificateKind, core.getInput('certificate_kind', {
+        this.certificateKind = (0, utils_1.parseEnum)(types_1.CertificateKind, core
+            .getInput('certificate_kind', {
             required: (0, utils_1.isNullOrEmpty)(this.policyKeysJson) && this.options === 'upload'
-        }));
+        })
+            .toUpperCase());
         this.password = core.getInput('password', {
             required: (0, utils_1.isNullOrEmpty)(this.policyKeysJson) &&
                 this.options === 'upload' &&
@@ -59714,6 +59716,7 @@ exports.fileExistsAsync = fileExistsAsync;
 exports.mask = mask;
 exports.parseEnum = parseEnum;
 exports.toCamelCase = toCamelCase;
+exports.capitalize = capitalize;
 const fs_1 = __nccwpck_require__(57147);
 const core = __importStar(__nccwpck_require__(42186));
 function isNullOrEmpty(input) {
@@ -59737,6 +59740,11 @@ function parseEnum(enumObj, value) {
 // Function to convert snake_case to camelCase
 function toCamelCase(value) {
     return value.replace(/(_\w)/g, match => match[1].toUpperCase());
+}
+function capitalize(word) {
+    if (!word)
+        return word;
+    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
 }
 
 

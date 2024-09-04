@@ -30,3 +30,8 @@ export function parseEnum<T extends object>(
 export function toCamelCase(value: string): string {
   return value.replace(/(_\w)/g, match => match[1].toUpperCase())
 }
+
+export function capitalize(word: string): string {
+  if (!word) return word
+  return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+}

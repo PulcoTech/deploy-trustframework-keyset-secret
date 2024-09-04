@@ -7,7 +7,13 @@ import {
   KeyType,
   KeyUse
 } from './types'
-import { isNullOrEmpty, mask, parseEnum, toCamelCase } from './utils'
+import {
+  capitalize,
+  isNullOrEmpty,
+  mask,
+  parseEnum,
+  toCamelCase
+} from './utils'
 import { validate } from 'class-validator'
 
 export class Settings {
@@ -31,7 +37,7 @@ export class Settings {
 
   constructor() {
     this.name = `${KEY_NAME_PREFIX}${core.getInput('name')}`
-    this.options = parseEnum(KeyOptions, core.getInput('options'))
+    this.options = parseEnum(KeyOptions, capitalize(core.getInput('options')))
     this.policyKeysJson = core.getInput('policy_keys')
 
     if (
@@ -42,18 +48,22 @@ export class Settings {
     }
     this.keyUse = parseEnum(
       KeyUse,
-      core.getInput('key_use', {
-        required:
-          isNullOrEmpty(this.policyKeysJson) &&
-          (this.options === 'generate' || this.options === 'manual')
-      })
+      capitalize(
+        core.getInput('key_use', {
+          required:
+            isNullOrEmpty(this.policyKeysJson) &&
+            (this.options === 'generate' || this.options === 'manual')
+        })
+      )
     )
     this.keyType = parseEnum(
       KeyType,
-      core.getInput('key_type', {
-        required:
-          isNullOrEmpty(this.policyKeysJson) && this.options === 'generate'
-      })
+      capitalize(
+        core.getInput('key_type', {
+          required:
+            isNullOrEmpty(this.policyKeysJson) && this.options === 'generate'
+        })
+      )
     )
     this.secret = core.getInput('secret', {
       required: isNullOrEmpty(this.policyKeysJson) && this.options === 'manual'
@@ -63,10 +73,12 @@ export class Settings {
     })
     this.certificateKind = parseEnum(
       CertificateKind,
-      core.getInput('certificate_kind', {
-        required:
-          isNullOrEmpty(this.policyKeysJson) && this.options === 'upload'
-      })
+      core
+        .getInput('certificate_kind', {
+          required:
+            isNullOrEmpty(this.policyKeysJson) && this.options === 'upload'
+        })
+        .toUpperCase()
     )
     this.password = core.getInput('password', {
       required:
