@@ -97,6 +97,7 @@ export class PolicyKey {
   readonly password?: string
 
   @IsOptional()
+  @ValidateIf(o => o.activationDate !== null)
   @IsNumber()
   @IsNotEmpty()
   @Expose({ name: 'nbf' })
@@ -108,6 +109,7 @@ export class PolicyKey {
   readonly activationDate?: number
 
   @IsOptional()
+  @ValidateIf(o => o.expirationDate !== null)
   @IsNumber()
   @Expose({ name: 'exp' })
   @Transform(

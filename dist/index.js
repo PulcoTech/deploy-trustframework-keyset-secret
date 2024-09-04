@@ -59477,6 +59477,7 @@ __decorate([
 ], PolicyKey.prototype, "password", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.ValidateIf)(o => o.activationDate !== null),
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_transformer_1.Expose)({ name: 'nbf' }),
@@ -59484,6 +59485,7 @@ __decorate([
 ], PolicyKey.prototype, "activationDate", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.ValidateIf)(o => o.expirationDate !== null),
     (0, class_validator_1.IsNumber)(),
     (0, class_transformer_1.Expose)({ name: 'exp' }),
     (0, class_transformer_1.Transform)(({ obj }) => obj.expirationDate !== null ? obj.expirationDate?.getTime() : undefined, { toPlainOnly: true })
@@ -59597,7 +59599,7 @@ class Settings {
         for (const p of this.policyKeys ?? []) {
             const errors = await (0, class_validator_1.validate)(p);
             if (errors.length > 0) {
-                throw new Error(`failed to validate supplied arguments ${JSON.stringify(errors)}`);
+                throw new Error(`failed to validate supplied arguments`);
             }
         }
     }
