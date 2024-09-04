@@ -59,7 +59,7 @@ jobs:
         with:
           name: testkeySet
           options: generate
-          key_use: signature
+          key_use: sig
           key_type: RSA
           client_id: ${{ secrets.AZURE_B2C_CLIENT_ID }}
           tenant_id: ${{ secrets.AZURE_B2C_TENANT_ID }}
