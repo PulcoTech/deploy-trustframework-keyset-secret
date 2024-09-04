@@ -59477,7 +59477,7 @@ __decorate([
 ], PolicyKey.prototype, "password", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.ValidateIf)(o => o.activationDate !== null),
+    (0, class_validator_1.ValidateIf)(o => !(0, utils_1.isNullOrEmpty)(o.activationDate)),
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_transformer_1.Expose)({ name: 'nbf' }),
@@ -59485,7 +59485,7 @@ __decorate([
 ], PolicyKey.prototype, "activationDate", void 0);
 __decorate([
     (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.ValidateIf)(o => o.expirationDate !== null),
+    (0, class_validator_1.ValidateIf)(o => !(0, utils_1.isNullOrEmpty)(o.expirationDate)),
     (0, class_validator_1.IsNumber)(),
     (0, class_transformer_1.Expose)({ name: 'exp' }),
     (0, class_transformer_1.Transform)(({ obj }) => obj.expirationDate !== null ? obj.expirationDate?.getTime() : undefined, { toPlainOnly: true })

@@ -10,7 +10,7 @@ import fs from 'fs'
 import { KeyOptions, KeyUse, KeyType, CertificateKind } from './types'
 import { IsFilePath } from './is-file-path'
 import { Exclude, Expose, instanceToPlain, Transform } from 'class-transformer'
-import { mask } from './utils'
+import { isNullOrEmpty, mask } from './utils'
 
 export class PolicyKey {
   @IsDefined()
@@ -97,7 +97,7 @@ export class PolicyKey {
   readonly password?: string
 
   @IsOptional()
-  @ValidateIf(o => o.activationDate !== null)
+  @ValidateIf(o => !isNullOrEmpty(o.activationDate))
   @IsNumber()
   @IsNotEmpty()
   @Expose({ name: 'nbf' })
@@ -109,7 +109,7 @@ export class PolicyKey {
   readonly activationDate?: number
 
   @IsOptional()
-  @ValidateIf(o => o.expirationDate !== null)
+  @ValidateIf(o => !isNullOrEmpty(o.expirationDate))
   @IsNumber()
   @Expose({ name: 'exp' })
   @Transform(
