@@ -59549,19 +59549,23 @@ class Settings {
     clientSecret;
     constructor() {
         this.name = `${types_1.KEY_NAME_PREFIX}${core.getInput('name')}`;
-        this.options = (0, utils_1.parseEnum)(types_1.KeyOptions, (0, utils_1.capitalize)(core.getInput('options')));
+        this.options = (0, utils_1.parseEnum)(types_1.KeyOptions, core.getInput('options').toLowerCase());
         this.policyKeysJson = core.getInput('policy_keys');
         if ((0, utils_1.isNullOrEmpty)(this.policyKeysJson) &&
             ((0, utils_1.isNullOrEmpty)(this.name) || (0, utils_1.isNullOrEmpty)(this.options))) {
             throw new Error(`Missing required inputs name=${this.name} options=${this.options} policy_keys=${this.policyKeysJson}`);
         }
-        this.keyUse = (0, utils_1.parseEnum)(types_1.KeyUse, (0, utils_1.capitalize)(core.getInput('key_use', {
+        this.keyUse = (0, utils_1.parseEnum)(types_1.KeyUse, core
+            .getInput('key_use', {
             required: (0, utils_1.isNullOrEmpty)(this.policyKeysJson) &&
                 (this.options === 'generate' || this.options === 'manual')
-        })));
-        this.keyType = (0, utils_1.parseEnum)(types_1.KeyType, (0, utils_1.capitalize)(core.getInput('key_type', {
+        })
+            .toLowerCase());
+        this.keyType = (0, utils_1.parseEnum)(types_1.KeyType, core
+            .getInput('key_type', {
             required: (0, utils_1.isNullOrEmpty)(this.policyKeysJson) && this.options === 'generate'
-        })));
+        })
+            .toLowerCase());
         this.secret = core.getInput('secret', {
             required: (0, utils_1.isNullOrEmpty)(this.policyKeysJson) && this.options === 'manual'
         });
@@ -59572,7 +59576,7 @@ class Settings {
             .getInput('certificate_kind', {
             required: (0, utils_1.isNullOrEmpty)(this.policyKeysJson) && this.options === 'upload'
         })
-            .toUpperCase());
+            .toLowerCase());
         this.password = core.getInput('password', {
             required: (0, utils_1.isNullOrEmpty)(this.policyKeysJson) &&
                 this.options === 'upload' &&
@@ -59664,8 +59668,8 @@ var KeyOptions;
 })(KeyOptions || (exports.KeyOptions = KeyOptions = {}));
 var KeyType;
 (function (KeyType) {
-    KeyType["Rsa"] = "RSA";
-    KeyType["Oct"] = "OCT";
+    KeyType["Rsa"] = "rsa";
+    KeyType["Oct"] = "oct";
 })(KeyType || (exports.KeyType = KeyType = {}));
 var KeyUse;
 (function (KeyUse) {
@@ -59674,8 +59678,8 @@ var KeyUse;
 })(KeyUse || (exports.KeyUse = KeyUse = {}));
 var CertificateKind;
 (function (CertificateKind) {
-    CertificateKind["X509"] = "X509";
-    CertificateKind["PKCS12"] = "PKCS12";
+    CertificateKind["X509"] = "x509";
+    CertificateKind["PKCS12"] = "pkcs12";
 })(CertificateKind || (exports.CertificateKind = CertificateKind = {}));
 /* eslint-enable no-shadow */
 

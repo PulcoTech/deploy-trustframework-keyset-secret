@@ -7,13 +7,7 @@ import {
   KeyType,
   KeyUse
 } from './types'
-import {
-  capitalize,
-  isNullOrEmpty,
-  mask,
-  parseEnum,
-  toCamelCase
-} from './utils'
+import { isNullOrEmpty, mask, parseEnum, toCamelCase } from './utils'
 import { validate } from 'class-validator'
 
 export class Settings {
@@ -37,7 +31,7 @@ export class Settings {
 
   constructor() {
     this.name = `${KEY_NAME_PREFIX}${core.getInput('name')}`
-    this.options = parseEnum(KeyOptions, capitalize(core.getInput('options')))
+    this.options = parseEnum(KeyOptions, core.getInput('options').toLowerCase())
     this.policyKeysJson = core.getInput('policy_keys')
 
     if (
@@ -50,22 +44,22 @@ export class Settings {
     }
     this.keyUse = parseEnum(
       KeyUse,
-      capitalize(
-        core.getInput('key_use', {
+      core
+        .getInput('key_use', {
           required:
             isNullOrEmpty(this.policyKeysJson) &&
             (this.options === 'generate' || this.options === 'manual')
         })
-      )
+        .toLowerCase()
     )
     this.keyType = parseEnum(
       KeyType,
-      capitalize(
-        core.getInput('key_type', {
+      core
+        .getInput('key_type', {
           required:
             isNullOrEmpty(this.policyKeysJson) && this.options === 'generate'
         })
-      )
+        .toLowerCase()
     )
     this.secret = core.getInput('secret', {
       required: isNullOrEmpty(this.policyKeysJson) && this.options === 'manual'
@@ -80,7 +74,7 @@ export class Settings {
           required:
             isNullOrEmpty(this.policyKeysJson) && this.options === 'upload'
         })
-        .toUpperCase()
+        .toLowerCase()
     )
     this.password = core.getInput('password', {
       required:

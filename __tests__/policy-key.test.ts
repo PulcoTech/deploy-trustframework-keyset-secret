@@ -42,7 +42,7 @@ describe('policy-key', () => {
     )
     const policyKeyExport = policyKey.toNormalizedObject()
     const expectedObject = {
-      kty: 'RSA',
+      kty: 'rsa',
       use: 'sig'
     }
     expect(policyKeyExport).toMatchObject(expectedObject)

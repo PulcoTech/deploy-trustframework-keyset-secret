@@ -8,8 +8,8 @@ export enum KeyOptions {
 }
 
 export enum KeyType {
-  Rsa = 'RSA',
-  Oct = 'OCT'
+  Rsa = 'rsa',
+  Oct = 'oct'
 }
 
 export enum KeyUse {
@@ -18,8 +18,8 @@ export enum KeyUse {
 }
 
 export enum CertificateKind {
-  X509 = 'X509',
-  PKCS12 = 'PKCS12'
+  X509 = 'x509',
+  PKCS12 = 'pkcs12'
 }
 
 export type EnumType<T> = T[keyof T]
