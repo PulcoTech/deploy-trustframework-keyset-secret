@@ -100,7 +100,9 @@ export class Settings {
     for (const p of this.policyKeys ?? []) {
       const errors = await validate(p)
       if (errors.length > 0) {
-        throw new Error(`failed to validate supplied arguments`)
+        throw new Error(
+          `failed to validate supplied arguments ${JSON.stringify(errors)}`
+        )
       }
     }
   }

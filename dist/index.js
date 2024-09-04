@@ -59599,7 +59599,7 @@ class Settings {
         for (const p of this.policyKeys ?? []) {
             const errors = await (0, class_validator_1.validate)(p);
             if (errors.length > 0) {
-                throw new Error(`failed to validate supplied arguments`);
+                throw new Error(`failed to validate supplied arguments ${JSON.stringify(errors)}`);
             }
         }
     }
