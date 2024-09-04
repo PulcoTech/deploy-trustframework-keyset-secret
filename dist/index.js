@@ -59577,11 +59577,11 @@ class Settings {
                 this.certificateKind === types_1.CertificateKind.PKCS12
         });
         this.activationDate = core.getInput('activation_date');
-        this.nbf = (0, utils_1.isNullOrEmpty)(this.activationDate)
+        this.nbf = !(0, utils_1.isNullOrEmpty)(this.activationDate)
             ? new Date(this.activationDate).getTime()
             : undefined;
         this.expirationDate = core.getInput('expiration_date');
-        this.exp = (0, utils_1.isNullOrEmpty)(this.expirationDate)
+        this.exp = !(0, utils_1.isNullOrEmpty)(this.expirationDate)
             ? new Date(this.expirationDate).getTime()
             : undefined;
         this.policyKeys = this.setPolicyKeys();

@@ -75,11 +75,11 @@ export class Settings {
         this.certificateKind === CertificateKind.PKCS12
     })
     this.activationDate = core.getInput('activation_date')
-    this.nbf = isNullOrEmpty(this.activationDate)
+    this.nbf = !isNullOrEmpty(this.activationDate)
       ? new Date(this.activationDate).getTime()
       : undefined
     this.expirationDate = core.getInput('expiration_date')
-    this.exp = isNullOrEmpty(this.expirationDate)
+    this.exp = !isNullOrEmpty(this.expirationDate)
       ? new Date(this.expirationDate).getTime()
       : undefined
 
