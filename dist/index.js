@@ -59625,7 +59625,8 @@ class Settings {
                     for (const key in o) {
                         if (Object.hasOwn(o, key)) {
                             const camelCaseKey = (0, utils_1.toCamelCase)(key);
-                            newObj[camelCaseKey] = o[key];
+                            newObj[camelCaseKey] =
+                                `${camelCaseKey === 'name' ? types_1.KEY_NAME_PREFIX : ''}${o[key]}`;
                         }
                     }
                     return newObj;

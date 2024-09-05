@@ -145,7 +145,8 @@ export class Settings {
           for (const key in o) {
             if (Object.hasOwn(o, key)) {
               const camelCaseKey = toCamelCase(key)
-              newObj[camelCaseKey] = o[key]
+              newObj[camelCaseKey] =
+                `${camelCaseKey === 'name' ? KEY_NAME_PREFIX : ''}${o[key]}`
             }
           }
           return newObj
