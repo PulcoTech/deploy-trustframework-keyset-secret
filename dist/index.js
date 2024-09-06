@@ -59805,7 +59805,7 @@ async function run() {
             try {
                 // Create in case it does not already exist
                 await client.api(graph_path).create({
-                    id: settings.name
+                    id: p.name
                 });
             }
             catch (error) {

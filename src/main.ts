@@ -26,7 +26,7 @@ export async function run(): Promise<void> {
       try {
         // Create in case it does not already exist
         await client.api(graph_path).create({
-          id: settings.name
+          id: p.name
         })
       } catch (error) {
         if (error instanceof Error) core.debug(error.message)
