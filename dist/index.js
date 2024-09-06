@@ -59629,7 +59629,7 @@ class Settings {
                     }
                     return newObj;
                 });
-                policyKeys = JSON.parse(JSON.stringify(transformedArray));
+                policyKeys = JSON.parse(JSON.stringify(transformedArray)).map((o) => new policy_key_1.PolicyKey(o.name, o.options, o.keyUse, o.keyType, o.secret, o.filePath, o.certificateKind, o.password, o.activationDate, o.expirationDate));
                 for (const p of policyKeys) {
                     Object.setPrototypeOf(p, policy_key_1.PolicyKey.prototype);
                 }
