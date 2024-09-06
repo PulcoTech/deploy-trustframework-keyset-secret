@@ -1,12 +1,6 @@
 import { PolicyKey } from './policy-key'
 import * as core from '@actions/core'
-import {
-  CertificateKind,
-  KEY_NAME_PREFIX,
-  KeyOptions,
-  KeyType,
-  KeyUse
-} from './types'
+import { CertificateKind, KeyOptions, KeyType, KeyUse } from './types'
 import { isNullOrEmpty, mask, parseEnum, toCamelCase } from './utils'
 import { validate } from 'class-validator'
 
@@ -30,7 +24,7 @@ export class Settings {
   readonly clientSecret: string
 
   constructor() {
-    this.name = `${KEY_NAME_PREFIX}${core.getInput('name')}`
+    this.name = core.getInput('name')
     this.options = parseEnum(KeyOptions, core.getInput('options').toLowerCase())
     this.policyKeysJson = core.getInput('policy_keys')
 
@@ -145,8 +139,7 @@ export class Settings {
           for (const key in o) {
             if (Object.hasOwn(o, key)) {
               const camelCaseKey = toCamelCase(key)
-              newObj[camelCaseKey] =
-                `${camelCaseKey === 'name' ? KEY_NAME_PREFIX : ''}${o[key]}`
+              newObj[camelCaseKey] = o[key]
             }
           }
           return newObj
