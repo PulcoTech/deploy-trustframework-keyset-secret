@@ -59809,18 +59809,17 @@ async function run() {
                 });
             }
             catch (error) {
-                console.log(error);
                 if (error instanceof Error)
                     core.debug(error.message);
             }
             if (p.options === 'generate') {
-                graph_path = `trustFramework/keySets/${p.name}/generateKey`;
+                graph_path = `trustFramework/keySets/${types_1.KEY_NAME_PREFIX}${p.name}/generateKey`;
             }
             else if (p.options === 'manual') {
-                graph_path = `trustFramework/keySets/${p.name}/uploadSecret`;
+                graph_path = `trustFramework/keySets/${types_1.KEY_NAME_PREFIX}${p.name}/uploadSecret`;
             }
             else if (p.options === 'upload') {
-                graph_path = `trustFramework/keySets/${p.name}/${p.certificateKind === types_1.CertificateKind.PKCS12 ? 'uploadPkcs12' : 'uploadCertificate'}`;
+                graph_path = `trustFramework/keySets/${types_1.KEY_NAME_PREFIX}${p.name}/${p.certificateKind === types_1.CertificateKind.PKCS12 ? 'uploadPkcs12' : 'uploadCertificate'}`;
             }
             await client.api(graph_path).post(p.toJson());
         }
