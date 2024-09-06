@@ -59629,7 +59629,7 @@ class Settings {
                     }
                     return newObj;
                 });
-                policyKeys = JSON.parse(JSON.stringify(transformedArray));
+                policyKeys = JSON.parse(JSON.stringify(transformedArray)).map((o) => new policy_key_1.PolicyKey(o.name, o.options, o.keyUse, o.keyType, o.secret, o.filePath, o.certificateKind, o.password, o.activationDate, o.expirationDate));
                 for (const p of policyKeys) {
                     Object.setPrototypeOf(p, policy_key_1.PolicyKey.prototype);
                 }
@@ -59813,13 +59813,13 @@ async function run() {
                     core.debug(error.message);
             }
             if (p.options === 'generate') {
-                graph_path = `trustFramework/keySets/${p.name}/generateKey`;
+                graph_path = `trustFramework/keySets/${types_1.KEY_NAME_PREFIX}${p.name}/generateKey`;
             }
             else if (p.options === 'manual') {
-                graph_path = `trustFramework/keySets/${p.name}/uploadSecret`;
+                graph_path = `trustFramework/keySets/${types_1.KEY_NAME_PREFIX}${p.name}/uploadSecret`;
             }
             else if (p.options === 'upload') {
-                graph_path = `trustFramework/keySets/${p.name}/${p.certificateKind === types_1.CertificateKind.PKCS12 ? 'uploadPkcs12' : 'uploadCertificate'}`;
+                graph_path = `trustFramework/keySets/${types_1.KEY_NAME_PREFIX}${p.name}/${p.certificateKind === types_1.CertificateKind.PKCS12 ? 'uploadPkcs12' : 'uploadCertificate'}`;
             }
             await client.api(graph_path).post(p.toJson());
         }
