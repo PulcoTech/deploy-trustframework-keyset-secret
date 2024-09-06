@@ -1,5 +1,4 @@
 import {
-  Contains,
   IsDefined,
   IsNotEmpty,
   IsNumber,
@@ -15,7 +14,6 @@ import { isNullOrEmpty, mask } from './utils'
 export class PolicyKey {
   @IsDefined()
   @IsNotEmpty()
-  @Contains('B2C_1A_')
   @Exclude()
   readonly name: string
 

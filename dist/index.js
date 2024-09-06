@@ -59424,7 +59424,6 @@ exports.PolicyKey = PolicyKey;
 __decorate([
     (0, class_validator_1.IsDefined)(),
     (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.Contains)('B2C_1A_'),
     (0, class_transformer_1.Exclude)()
 ], PolicyKey.prototype, "name", void 0);
 __decorate([
@@ -59548,7 +59547,7 @@ class Settings {
     clientId;
     clientSecret;
     constructor() {
-        this.name = `${types_1.KEY_NAME_PREFIX}${core.getInput('name')}`;
+        this.name = core.getInput('name');
         this.options = (0, utils_1.parseEnum)(types_1.KeyOptions, core.getInput('options').toLowerCase());
         this.policyKeysJson = core.getInput('policy_keys');
         if ((0, utils_1.isNullOrEmpty)(this.policyKeysJson) &&
@@ -59625,8 +59624,7 @@ class Settings {
                     for (const key in o) {
                         if (Object.hasOwn(o, key)) {
                             const camelCaseKey = (0, utils_1.toCamelCase)(key);
-                            newObj[camelCaseKey] =
-                                `${camelCaseKey === 'name' ? types_1.KEY_NAME_PREFIX : ''}${o[key]}`;
+                            newObj[camelCaseKey] = o[key];
                         }
                     }
                     return newObj;
