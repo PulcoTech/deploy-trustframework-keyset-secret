@@ -59809,6 +59809,7 @@ async function run() {
                 });
             }
             catch (error) {
+                console.log(error);
                 if (error instanceof Error)
                     core.debug(error.message);
             }

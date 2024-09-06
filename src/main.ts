@@ -29,6 +29,7 @@ export async function run(): Promise<void> {
           id: p.name
         })
       } catch (error) {
+        console.log(error)
         if (error instanceof Error) core.debug(error.message)
       }
       if (p.options === 'generate') {
